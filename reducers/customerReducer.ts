@@ -1,8 +1,8 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import ICustomer from "../models/ICustomer";
+import Customer from "../models/ICustomer";
 import axios from "axios";
 
-export const initialState: ICustomer[] = [];
+export const initialState: Customer[] = [];
 
 const api = axios.create({
     baseURL: "http://localhost:3000/customer",
@@ -22,7 +22,7 @@ export const getAllCustomers = createAsyncThunk(
 
 export const saveCustomer = createAsyncThunk(
     "customer/saveCustomer",
-    async (customer: ICustomer) => {
+    async (customer: Customer) => {
         try {
             const response = await api.post("/add", customer);
             return response.data;
@@ -34,7 +34,7 @@ export const saveCustomer = createAsyncThunk(
 
 export const updateCustomer = createAsyncThunk(
     "customer/updateCustomer",
-    async (payload: { email: string; customer: ICustomer }) => {
+    async (payload: { email: string; customer: Customer }) => {
         try {
             const response = await api.put(
                 `/update/${payload.email}`,
@@ -94,7 +94,7 @@ const customerSlice = createSlice({
         builder
             .addCase(deleteCustomer.fulfilled, (state, action) => {
                 return state.filter(
-                    (customer: ICustomer) => customer.email !== action.payload.email
+                    (customer: Customer) => customer.email !== action.payload.email
                 );
             })
             .addCase(deleteCustomer.rejected, (state, action) => {
@@ -105,7 +105,7 @@ const customerSlice = createSlice({
             });
         builder
             .addCase(getAllCustomers.fulfilled, (state, action) => {
-                action.payload.map((customer: ICustomer) => {
+                action.payload.map((customer: Customer) => {
                     state.push(customer);
                 });
             })

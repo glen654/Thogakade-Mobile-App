@@ -1,4 +1,4 @@
-export  class ICustomer {
+export default class ICustomer {
     name: string;
     address: string;
     email: string;

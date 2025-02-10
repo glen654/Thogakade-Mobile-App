@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { View, Text, TextInput, Button, StyleSheet, FlatList, TouchableOpacity } from "react-native";
 import { Link } from "expo-router";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import {useDispatch, useSelector} from "react-redux";
-import {AppDispatch} from "../store/Store";
-import {ICustomer} from "../models/ICustomer";
+import {AppDispatch, RootState} from "../store/Store";
 import {deleteCustomer, getAllCustomers, saveCustomer, updateCustomer} from "../reducers/customerReducer";
+import ICustomer from "../models/ICustomer";
 
 function Customer(){
     const dispatch = useDispatch<AppDispatch>();
-    const customers = useSelector((state) => state.customer);
+    const customers = useSelector((state:RootState) => state.customer);
 
     const [name, setName] = useState("");
     const [address, setAddress] = useState("");

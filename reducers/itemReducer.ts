@@ -1,8 +1,8 @@
-import IItem from "../models/IItem";
+import Item from "../models/IItem";
 import axios from "axios";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 
-export const initialState: IItem[] = [];
+export const initialState: Item[] = [];
 
 const api = axios.create({
     baseURL: "http://localhost:3000/item",
@@ -19,7 +19,7 @@ export const getAllItems = createAsyncThunk("item/getItems", async () => {
 
 export const saveItem = createAsyncThunk(
     "item/saveItem",
-    async (item: IItem) => {
+    async (item: Item) => {
         try {
             const response = await api.post("/add", item);
             return response.data;
@@ -31,7 +31,7 @@ export const saveItem = createAsyncThunk(
 
 export const updateItem = createAsyncThunk(
     "item/updateItem",
-    async (payload: { name: string; item: IItem }) => {
+    async (payload: { name: string; item: Item }) => {
         try {
             const response = await api.put(`/update/${payload.name}`, payload.item);
             return response.data;
@@ -88,7 +88,7 @@ const itemSlice = createSlice({
         builder
             .addCase(deleteItem.fulfilled, (state, action) => {
                 return state.filter(
-                    (item: IItem) => item.name !== action.payload.name
+                    (item: Item) => item.name !== action.payload.name
                 );
             })
             .addCase(deleteItem.rejected, (state, action) => {
@@ -99,7 +99,7 @@ const itemSlice = createSlice({
             });
         builder
             .addCase(getAllItems.fulfilled, (state, action) => {
-                action.payload.map((item: IItem) => {
+                action.payload.map((item: Item) => {
                     state.push(item);
                 });
             })

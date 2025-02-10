@@ -3,13 +3,13 @@ import {Link} from "expo-router";
 import React, {useEffect, useState} from "react";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {useDispatch, useSelector} from "react-redux";
-import {AppDispatch} from "../store/Store";
-import {IItem} from "../models/IItem";
+import {AppDispatch, RootState} from "../store/Store";
 import {deleteItem, getAllItems, saveItem, updateItem} from "../reducers/itemReducer";
+import IItem from "../models/IItem";
 
 function Item(){
     const dispatch = useDispatch<AppDispatch>();
-    const items = useSelector((state) => state.item);
+    const items = useSelector((state:RootState) => state.item);
 
     const [name,setName] = useState("");
     const [quantity, setQuantity] = useState(0);
@@ -100,7 +100,7 @@ function Item(){
                         <TouchableOpacity onPress={() => handleEdit(item)}>
                             <MaterialCommunityIcons name="pencil" size={24} color="blue" />
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => handleEdit(item.name)}>
+                        <TouchableOpacity onPress={() => handleEdit(item)}>
                             <MaterialCommunityIcons name="delete" size={24} color="red" />
                         </TouchableOpacity>
                     </View>
