@@ -99,9 +99,7 @@ const itemSlice = createSlice({
             });
         builder
             .addCase(getAllItems.fulfilled, (state, action) => {
-                action.payload.map((item: Item) => {
-                    state.push(item);
-                });
+                return action.payload;
             })
             .addCase(getAllItems.rejected, (state, action) => {
                 console.error("Failed to load item data", action.payload);

@@ -105,9 +105,7 @@ const customerSlice = createSlice({
             });
         builder
             .addCase(getAllCustomers.fulfilled, (state, action) => {
-                action.payload.map((customer: Customer) => {
-                    state.push(customer);
-                });
+                return action.payload
             })
             .addCase(getAllCustomers.rejected, (state, action) => {
                 console.error("Failed to load customer data", action.payload);
